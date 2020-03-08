@@ -1,20 +1,46 @@
 import random
 import time
 
-array = [random.random() for _ in range(10)]
-print(array)
 
-index = 0
-number = array[0]
+def find_peaks(array):
+    indexes = []
+    numbers = []
 
-start = time.time()
-for i in range(len(array) - 1):
-    if number < array[i]:
-        number = array[i]
-        index = i
+    start = time.time()
+
+    if len(array) == 1:
+        indexes.append(1)
+        numbers.append(array[0])
     else:
-        pass
+        for i in range(len(array)):
+            if i != 0 and i != len(array) - 1:
+                if array[i] >= array[i - 1] and array[i] >= array[i + 1]:
+                    indexes.append(i + 1)
+                    numbers.append(array[i])
+            if i == 0:
+                if array[i] >= array[i + 1]:
+                    indexes.append(i + 1)
+                    numbers.append(array[i])
+            if i == len(array) - 1:
+                if array[i] >= array[i - 1]:
+                    indexes.append(i + 1)
+                    numbers.append(array[i])
 
-end = time.time()
-print("Peak is at index", index + 1, "with value", number)
-print(f"Time taken: {end - start}")
+    end = time.time()
+    print("Peaks are at indexes", indexes, "with values", numbers)
+    print(f"Time taken: {end - start} \n")
+
+
+num_of_elements = 200  # Must be positive Integer
+
+array = [_ + 1 for _ in range(num_of_elements)]
+print(array)
+find_peaks(array)
+
+array = [num_of_elements - _ for _ in range(num_of_elements)]
+print(array)
+find_peaks(array)
+
+array = [random.random() for _ in range(num_of_elements)]
+print(array)
+find_peaks(array)
