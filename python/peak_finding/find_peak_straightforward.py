@@ -1,13 +1,20 @@
-import random
 import time
 
 
-def find_peaks(array):
+def find_peaks_brute_force(array, single=False):
     indexes = []
     numbers = []
 
     start = time.time()
 
+    method_name(array, indexes, numbers, single)
+
+    end = time.time()
+    print("Peaks are at indexes", indexes, "with values", numbers)
+    print(f"Time taken: {end - start} \n")
+
+
+def method_name(array, indexes, numbers, single):
     if len(array) == 1:
         indexes.append(1)
         numbers.append(array[0])
@@ -17,30 +24,23 @@ def find_peaks(array):
                 if array[i] >= array[i - 1] and array[i] >= array[i + 1]:
                     indexes.append(i + 1)
                     numbers.append(array[i])
+                    if single:
+                        break
+                    else:
+                        pass
             if i == 0:
                 if array[i] >= array[i + 1]:
                     indexes.append(i + 1)
                     numbers.append(array[i])
+                    if single:
+                        break
+                    else:
+                        pass
             if i == len(array) - 1:
                 if array[i] >= array[i - 1]:
                     indexes.append(i + 1)
                     numbers.append(array[i])
-
-    end = time.time()
-    print("Peaks are at indexes", indexes, "with values", numbers)
-    print(f"Time taken: {end - start} \n")
-
-
-num_of_elements = 200  # Must be positive Integer
-
-array = [_ + 1 for _ in range(num_of_elements)]
-print(array)
-find_peaks(array)
-
-array = [num_of_elements - _ for _ in range(num_of_elements)]
-print(array)
-find_peaks(array)
-
-array = [random.random() for _ in range(num_of_elements)]
-print(array)
-find_peaks(array)
+                    if single:
+                        break
+                    else:
+                        pass
