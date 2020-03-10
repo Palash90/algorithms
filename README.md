@@ -1,2 +1,2 @@
-# algorithms
-These are all the exercise done to learn Algorithms
+# Algorithms
+A set of algorithm implementations.
