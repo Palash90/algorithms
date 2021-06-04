@@ -3,6 +3,8 @@
   "numOfBar": 4,
   "noteRangeLow": 53,
   "noteRangeHigh": 77,
+  "tempo": 60,
+  "chordbotName": "Programatical - ",
   "chords": [
     {
       "name": "C Major",
@@ -20,7 +22,11 @@
         72,
         76,
         79
-      ]
+      ],
+      "chordbotSignature": {
+                    "type": "Maj",
+                    "root": "C"
+      }
     },
     {
       "name": "F Major",
@@ -38,16 +44,37 @@
         72,
         77,
         81
-      ]
+      ],
+      "chordbotSignature": {
+                    "type": "Maj",
+                    "root": "F"
+      }
   },{
     "name": "G Major",
     "lowOctaveNotes": [50, 55, 59],
     "middleOctaveNotes": [62, 67, 71],
-    "highOctaveNotes": [74, 79, 83]
+    "highOctaveNotes": [74, 79, 83],
+      "chordbotSignature": {
+                    "type": "Maj",
+                    "root": "G"
+      }
   },{
     "name": "A Minor",
     "lowOctaveNotes": [48, 52, 57],
     "middleOctaveNotes": [60, 64, 69],
-    "highOctaveNotes": [72, 76, 81]
+    "highOctaveNotes": [72, 76, 81],
+      "chordbotSignature": {
+                    "type": "Min",
+                    "root": "A"
+      }
+  },{
+    "name": "D Minor",
+    "lowOctaveNotes": [50, 53, 57],
+    "middleOctaveNotes": [62, 65, 69],
+    "highOctaveNotes": [74, 77, 81],
+      "chordbotSignature": {
+                    "type": "Min",
+                    "root": "D"
+      }
   }]
 }

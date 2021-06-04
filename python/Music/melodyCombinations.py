@@ -25,22 +25,23 @@ def permutations(lst):
     return l  # return at end of outer for loop
 
 
+# Load the input configuration for the midi to be generated
+inputFile = open('input.json')
+inp = json.load(inputFile)
+
 # create your MIDI object
 mf = MIDIFile(1)  # only 1 track
 track = 0  # the only track
 
 time = 0  # start at the beginning
 mf.addTrackName(track, time, "Sample Track")
-mf.addTempo(track, time, 120)
+mf.addTempo(track, time, inp["tempo"])
 
 # add some notes
 channel = 0
 volume = 100
 
-time = 0
-
-inputFile = open('input.json')
-inp = json.load(inputFile)
+outputChords = []
 
 choices = list(range(inp['length']))
 random.shuffle(choices)
@@ -60,8 +61,14 @@ for i in range(numOfChords):
 
 for i in choices:
     combination = chordCombinations[i]
-    for j in combination:
+
+    for j in range(len(combination)):
+        print(len(combination), inp['chords'], j)
         chord = inp['chords'][combination[j]]
+
+        chordbotSignature=chord['chordbotSignature']
+        chordbotSignature['duration']=inp["numOfBar"]
+        outputChords.append(chordbotSignature)
 
         lowOctaveNotes = chord['lowOctaveNotes']
         middleOctaveNotes = chord['middleOctaveNotes']
@@ -82,15 +89,28 @@ for i in choices:
         random.shuffle(L)
         chosenDurationSequence = L[0]
 
-        print(chosenNoteSequence, chosenDurationSequence)
         for noteCounter in range(len(chosenNoteSequence)):
             note = chosenNoteSequence[noteCounter]
             duration = chosenDurationSequence[noteCounter]
             if duration == 0:
                 continue
-            mf.addNote(track, channel, note, time, duration * 0.5, volume)
-            time = time + duration * 0.5
+            else:
+                if duration <= 2:
+                    mf.addNote(track, channel, note, time, duration * 0.5, volume)
+                    time = time + duration * 0.5
+                else:
+                    fullNotes = int(duration / 2)
+                    halfNote = int(duration % 2)
+                    for fullNote in range(fullNotes):
+                        mf.addNote(track, channel, note, time, 1, volume)
+                        time = time + 1
+                    if halfNote != 0:
+                        mf.addNote(track, channel, note, time, 0.5, volume)
+                        time = time + 0.5
 
 # write it to disk
 with open("output.mid", 'wb') as outputFile:
     mf.writeFile(outputFile)
+
+with open("chordBot.json", 'w') as outputFile:
+    json.dump(outputChords, outputFile)
