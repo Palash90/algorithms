@@ -54,7 +54,17 @@
         77,
         81
       ],
-      "passingNotes":[],
+      "passingNotes": [
+        50,
+        52,
+        55,
+        62,
+        64,
+        67,
+        74,
+        76,
+        79
+      ],
       "chordbotSignature": {
         "type": "Maj",
         "root": "F"
@@ -77,7 +87,7 @@
         79,
         83
       ],
-      "passingNotes":[],
+      "passingNotes": [],
       "chordbotSignature": {
         "type": "Maj",
         "root": "G"
@@ -100,7 +110,7 @@
         76,
         81
       ],
-      "passingNotes":[],
+      "passingNotes": [],
       "chordbotSignature": {
         "type": "Min",
         "root": "A"
@@ -123,7 +133,7 @@
         77,
         81
       ],
-      "passingNotes":[],
+      "passingNotes": [],
       "chordbotSignature": {
         "type": "Min",
         "root": "D"
@@ -149,7 +159,7 @@
         79,
         83
       ],
-      "passingNotes":[],
+      "passingNotes": [],
       "chordbotSignature": {
         "type": "Maj7",
         "root": "C"

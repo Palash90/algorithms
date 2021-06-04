@@ -97,19 +97,28 @@ for i in choices:
             duration = chosenDurationSequence[noteCounter]
 
             passingNote = None
+
             if passingNotes is not None and noteCounter > 0:
                 lastNote = chosenNoteSequence[noteCounter - 1]
+                passingNoteArr = []
                 for passing in passingNotes:
                     if lastNote <= passing <= note:
-                        passingNote = passing
+                        passingNoteArr.append(passing)
+                random.shuffle(passingNoteArr)
+                if len(passingNoteArr) > 0:
+                    passingNote = passingNoteArr[0]
 
             if duration == 0:
                 continue
             else:
                 if duration <= 2:
                     addPassing = bool(random.getrandbits(1))
-                    mf.addNote(track, channel, note, time, duration * 0.5, volume)
-                    time = time + duration * 0.5
+                    if addPassing and passingNote is not None:
+                        mf.addNote(track, channel, passingNote, time, duration * 0.5, volume)
+                        time = time + duration * 0.5
+                    else:
+                        mf.addNote(track, channel, note, time, duration * 0.5, volume)
+                        time = time + duration * 0.5
                 else:
                     fullNotes = int(duration / 2)
                     halfNote = int(duration % 2)
