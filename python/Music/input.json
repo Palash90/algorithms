@@ -1,10 +1,11 @@
 {
+  "name": "Programmatically",
+  "dir": "../../../../",
   "length": 16,
   "numOfBar": 4,
   "noteRangeLow": 53,
   "noteRangeHigh": 77,
   "tempo": 60,
-  "chordbotName": "Programatical - ",
   "chords": [
     {
       "name": "C Major",
@@ -23,9 +24,17 @@
         76,
         79
       ],
+      "auxilaryNotes": [
+        50,
+        53,
+        62,
+        65,
+        74,
+        77
+      ],
       "chordbotSignature": {
-                    "type": "Maj",
-                    "root": "C"
+        "type": "Maj",
+        "root": "C"
       }
     },
     {
@@ -46,35 +55,100 @@
         81
       ],
       "chordbotSignature": {
-                    "type": "Maj",
-                    "root": "F"
+        "type": "Maj",
+        "root": "F"
       }
-  },{
-    "name": "G Major",
-    "lowOctaveNotes": [50, 55, 59],
-    "middleOctaveNotes": [62, 67, 71],
-    "highOctaveNotes": [74, 79, 83],
+    },
+    {
+      "name": "G Major",
+      "lowOctaveNotes": [
+        50,
+        55,
+        59
+      ],
+      "middleOctaveNotes": [
+        62,
+        67,
+        71
+      ],
+      "highOctaveNotes": [
+        74,
+        79,
+        83
+      ],
       "chordbotSignature": {
-                    "type": "Maj",
-                    "root": "G"
+        "type": "Maj",
+        "root": "G"
       }
-  },{
-    "name": "A Minor",
-    "lowOctaveNotes": [48, 52, 57],
-    "middleOctaveNotes": [60, 64, 69],
-    "highOctaveNotes": [72, 76, 81],
+    },
+    {
+      "name": "A Minor",
+      "lowOctaveNotes": [
+        48,
+        52,
+        57
+      ],
+      "middleOctaveNotes": [
+        60,
+        64,
+        69
+      ],
+      "highOctaveNotes": [
+        72,
+        76,
+        81
+      ],
       "chordbotSignature": {
-                    "type": "Min",
-                    "root": "A"
+        "type": "Min",
+        "root": "A"
       }
-  },{
-    "name": "D Minor",
-    "lowOctaveNotes": [50, 53, 57],
-    "middleOctaveNotes": [62, 65, 69],
-    "highOctaveNotes": [74, 77, 81],
+    },
+    {
+      "name": "D Minor",
+      "lowOctaveNotes": [
+        50,
+        53,
+        57
+      ],
+      "middleOctaveNotes": [
+        62,
+        65,
+        69
+      ],
+      "highOctaveNotes": [
+        74,
+        77,
+        81
+      ],
       "chordbotSignature": {
-                    "type": "Min",
-                    "root": "D"
+        "type": "Min",
+        "root": "D"
       }
-  }]
+    },
+    {
+      "name": "C Major 7",
+      "lowOctaveNotes": [
+        48,
+        52,
+        55,
+        59
+      ],
+      "middleOctaveNotes": [
+        60,
+        64,
+        67,
+        71
+      ],
+      "highOctaveNotes": [
+        72,
+        76,
+        79,
+        83
+      ],
+      "chordbotSignature": {
+        "type": "Maj7",
+        "root": "C"
+      }
+    }
+  ]
 }

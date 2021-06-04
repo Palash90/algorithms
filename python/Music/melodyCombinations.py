@@ -27,15 +27,18 @@ def permutations(lst):
 
 # Load the input configuration for the midi to be generated
 inputFile = open('input.json')
-inp = json.load(inputFile)
+config = json.load(inputFile)
+
+chordbotTemplateFile = open('ChordbotTemplate.json')
+chordbotTemplate = json.load(chordbotTemplateFile)
 
 # create your MIDI object
 mf = MIDIFile(1)  # only 1 track
 track = 0  # the only track
 
 time = 0  # start at the beginning
-mf.addTrackName(track, time, "Sample Track")
-mf.addTempo(track, time, inp["tempo"])
+mf.addTrackName(track, time, config['name'])
+mf.addTempo(track, time, config["tempo"])
 
 # add some notes
 channel = 0
@@ -43,10 +46,10 @@ volume = 100
 
 outputChords = []
 
-choices = list(range(inp['length']))
+choices = list(range(config['length']))
 random.shuffle(choices)
 
-numOfChords = len(inp['chords'])
+numOfChords = len(config['chords'])
 chordCombinations = []
 
 if numOfChords < 3:
@@ -63,29 +66,29 @@ for i in choices:
     combination = chordCombinations[i]
 
     for j in range(len(combination)):
-        print(len(combination), inp['chords'], j)
-        chord = inp['chords'][combination[j]]
+        chord = config['chords'][combination[j]]
 
-        chordbotSignature=chord['chordbotSignature']
-        chordbotSignature['duration']=inp["numOfBar"]
+        chordbotSignature = chord['chordbotSignature']
+        chordbotSignature['duration'] = config["numOfBar"]
         outputChords.append(chordbotSignature)
 
         lowOctaveNotes = chord['lowOctaveNotes']
         middleOctaveNotes = chord['middleOctaveNotes']
         highOctaveNotes = chord['highOctaveNotes']
+        auxilaryNotes = chord['auxilaryNotes']
 
         totalNotes = lowOctaveNotes + middleOctaveNotes + highOctaveNotes
 
         filteredNotes = []
         for note in totalNotes:
-            if inp["noteRangeLow"] <= note <= inp["noteRangeHigh"]:
+            if config["noteRangeLow"] <= note <= config["noteRangeHigh"]:
                 filteredNotes.append(note)
 
         permutedNotes = permutations(filteredNotes)
         random.shuffle(permutedNotes)
         chosenNoteSequence = permutedNotes[0]
 
-        L = list(sums(len(filteredNotes), inp['numOfBar'] * 2))
+        L = list(sums(len(filteredNotes), config['numOfBar'] * 2))
         random.shuffle(L)
         chosenDurationSequence = L[0]
 
@@ -108,9 +111,13 @@ for i in choices:
                         mf.addNote(track, channel, note, time, 0.5, volume)
                         time = time + 0.5
 
+chordbotTemplate["tempo"] = config["tempo"]
+chordbotTemplate['songName'] = config["name"]
+chordbotTemplate['sections'][0]["chords"] = outputChords
+
 # write it to disk
-with open("output.mid", 'wb') as outputFile:
+with open(config['dir'] + config['name'] + ".midi", 'wb') as outputFile:
     mf.writeFile(outputFile)
 
-with open("chordBot.json", 'w') as outputFile:
-    json.dump(outputChords, outputFile)
+with open(config['dir'] + config['name'] + ".json", 'w') as outputFile:
+    json.dump(chordbotTemplate, outputFile)
