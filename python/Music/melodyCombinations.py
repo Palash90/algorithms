@@ -127,15 +127,16 @@ for i in choices:
                     fullNotes = int(duration / 2)
                     halfNote = int(duration % 2)
 
+                    for fullNote in range(fullNotes - 1):
+                        mf.addNote(track, channel, note, time, 1, volume)
+                        time = time + 1
+
                     if passingNote is not None:
                         mf.addNote(track, channel, passingNote, time, 1, volume)
                     else:
                         mf.addNote(track, channel, note, time, 1, volume)
                     time = time + 1
 
-                    for fullNote in range(fullNotes - 1):
-                        mf.addNote(track, channel, note, time, 1, volume)
-                        time = time + 1
                     if halfNote != 0:
                         mf.addNote(track, channel, note, time, 0.5, volume)
                         time = time + 0.5
