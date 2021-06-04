@@ -107,6 +107,10 @@ for i in choices:
                 random.shuffle(passingNoteArr)
                 if len(passingNoteArr) > 0:
                     passingNote = passingNoteArr[0]
+                    if config['noteRangeLow'] <= passingNote <= config['noteRangeHigh']:
+                        pass
+                    else:
+                        passingNote = None
 
             if duration == 0:
                 continue
@@ -122,7 +126,14 @@ for i in choices:
                 else:
                     fullNotes = int(duration / 2)
                     halfNote = int(duration % 2)
-                    for fullNote in range(fullNotes):
+
+                    if passingNote is not None:
+                        mf.addNote(track, channel, passingNote, time, 1, volume)
+                    else:
+                        mf.addNote(track, channel, note, time, 1, volume)
+                    time = time + 1
+
+                    for fullNote in range(fullNotes - 1):
                         mf.addNote(track, channel, note, time, 1, volume)
                         time = time + 1
                     if halfNote != 0:

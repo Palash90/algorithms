@@ -3,7 +3,7 @@
   "dir": "../../../../",
   "length": 16,
   "numOfBar": 4,
-  "noteRangeLow": 53,
+  "noteRangeLow": 55,
   "noteRangeHigh": 77,
   "tempo": 60,
   "chords": [
@@ -87,7 +87,17 @@
         79,
         83
       ],
-      "passingNotes": [],
+      "passingNotes": [
+        52,
+        53,
+        57,
+        64,
+        65,
+        69,
+        76,
+        77,
+        81
+      ],
       "chordbotSignature": {
         "type": "Maj",
         "root": "G"
