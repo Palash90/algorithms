@@ -1,18 +1,44 @@
 {
-  "length": 1,
-  "numOfBar": 3,
-  "noteRangeLow": 55,
-  "noteRangeHigh": 79,
-  "chords": [{
-    "name": "C Major",
-    "lowOctaveNotes": [48, 52, 55],
-    "middleOctaveNotes": [60, 64, 67],
-    "highOctaveNotes": [72, 76, 79]
-  },{
-    "name": "F Major",
-    "lowOctaveNotes": [48, 53, 57],
-    "middleOctaveNotes": [60, 65, 69],
-    "highOctaveNotes": [72, 77, 81]
+  "length": 16,
+  "numOfBar": 4,
+  "noteRangeLow": 53,
+  "noteRangeHigh": 77,
+  "chords": [
+    {
+      "name": "C Major",
+      "lowOctaveNotes": [
+        48,
+        52,
+        55
+      ],
+      "middleOctaveNotes": [
+        60,
+        64,
+        67
+      ],
+      "highOctaveNotes": [
+        72,
+        76,
+        79
+      ]
+    },
+    {
+      "name": "F Major",
+      "lowOctaveNotes": [
+        48,
+        53,
+        57
+      ],
+      "middleOctaveNotes": [
+        60,
+        65,
+        69
+      ],
+      "highOctaveNotes": [
+        72,
+        77,
+        81
+      ]
   },{
     "name": "G Major",
     "lowOctaveNotes": [50, 55, 59],
