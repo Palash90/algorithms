@@ -75,7 +75,7 @@ for i in choices:
         lowOctaveNotes = chord['lowOctaveNotes']
         middleOctaveNotes = chord['middleOctaveNotes']
         highOctaveNotes = chord['highOctaveNotes']
-        auxilaryNotes = chord['auxilaryNotes']
+        passingNotes = chord['passingNotes']
 
         totalNotes = lowOctaveNotes + middleOctaveNotes + highOctaveNotes
 
@@ -95,10 +95,19 @@ for i in choices:
         for noteCounter in range(len(chosenNoteSequence)):
             note = chosenNoteSequence[noteCounter]
             duration = chosenDurationSequence[noteCounter]
+
+            passingNote = None
+            if passingNotes is not None and noteCounter > 0:
+                lastNote = chosenNoteSequence[noteCounter - 1]
+                for passing in passingNotes:
+                    if lastNote <= passing <= note:
+                        passingNote = passing
+
             if duration == 0:
                 continue
             else:
                 if duration <= 2:
+                    addPassing = bool(random.getrandbits(1))
                     mf.addNote(track, channel, note, time, duration * 0.5, volume)
                     time = time + duration * 0.5
                 else:
