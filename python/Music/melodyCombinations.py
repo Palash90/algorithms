@@ -69,7 +69,7 @@ for i in choices:
         chord = config['chords'][combination[j]]
 
         chordbotSignature = chord['chordbotSignature']
-        chordbotSignature['duration'] = config["numOfBar"]
+        chordbotSignature['duration'] = 4
         outputChords.append(chordbotSignature)
 
         lowOctaveNotes = chord['lowOctaveNotes']
@@ -88,7 +88,7 @@ for i in choices:
         random.shuffle(permutedNotes)
         chosenNoteSequence = permutedNotes[0]
 
-        L = list(sums(len(filteredNotes), config['numOfBar'] * 2))
+        L = list(sums(len(filteredNotes), 4 * 2))
         random.shuffle(L)
         chosenDurationSequence = L[0]
 
@@ -128,12 +128,16 @@ for i in choices:
                     halfNote = int(duration % 2)
 
                     if passingNote is not None:
+                        mf.addNote(track, channel, note, time, 1, volume)
+                        time = time + 1
                         mf.addNote(track, channel, passingNote, time, 1, volume)
                     else:
                         mf.addNote(track, channel, note, time, 1, volume)
+                        time = time + 1
+                        mf.addNote(track, channel, note, time, 1, volume)
                     time = time + 1
 
-                    for fullNote in range(fullNotes - 1):
+                    for fullNote in range(fullNotes - 2):
                         mf.addNote(track, channel, note, time, 1, volume)
                         time = time + 1
                     if halfNote != 0:

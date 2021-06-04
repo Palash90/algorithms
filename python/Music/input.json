@@ -2,7 +2,6 @@
   "name": "Programmatically",
   "dir": "../../../../",
   "length": 16,
-  "numOfBar": 4,
   "noteRangeLow": 55,
   "noteRangeHigh": 77,
   "tempo": 60,
@@ -120,7 +119,17 @@
         76,
         81
       ],
-      "passingNotes": [],
+      "passingNotes": [
+        50,
+        53,
+        55,
+        62,
+        65,
+        67,
+        74,
+        77,
+        79
+      ],
       "chordbotSignature": {
         "type": "Min",
         "root": "A"
@@ -143,7 +152,14 @@
         77,
         81
       ],
-      "passingNotes": [],
+      "passingNotes": [
+        52,
+        55,
+        64,
+        67,
+        76,
+        79
+      ],
       "chordbotSignature": {
         "type": "Min",
         "root": "D"
@@ -169,7 +185,17 @@
         79,
         83
       ],
-      "passingNotes": [],
+      "passingNotes": [
+        50,
+        53,
+        57,
+        62,
+        65,
+        69,
+        74,
+        77,
+        81
+      ],
       "chordbotSignature": {
         "type": "Maj7",
         "root": "C"
