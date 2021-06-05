@@ -5,6 +5,7 @@
   "noteRangeLow": 55,
   "noteRangeHigh": 77,
   "excludedNotes": [],
+  "endWithFirstChord": true,
   "tempo": 90,
   "auxilaryNotes": {
     "55": [

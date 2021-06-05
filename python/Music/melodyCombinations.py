@@ -68,6 +68,10 @@ for i in range(numOfChords):
                 if i != j and i != k and i != l and j != k and j != l and k != l:
                     chordCombinations.append(tuple([i, j, k, l]))
 
+if config["endWithFirstChord"]:
+    config['chords'][chordCombinations[choices[len(choices) - 1]][3]] = config['chords'][
+        chordCombinations[choices[0]][0]]
+
 for i in choices:
     combination = chordCombinations[i]
 
