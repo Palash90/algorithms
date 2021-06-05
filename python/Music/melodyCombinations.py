@@ -29,8 +29,12 @@ def permutations(lst):
 inputFile = open('input.json')
 config = json.load(inputFile)
 
+midiNumberToNote = json.load(open('midiNumberToNote.json'))
+
 chordbotTemplateFile = open('ChordbotTemplate.json')
 chordbotTemplate = json.load(chordbotTemplateFile)
+
+noteSequence = []
 
 # create your MIDI object
 mf = MIDIFile(1)  # only 1 track
@@ -42,7 +46,7 @@ mf.addTempo(track, time, config["tempo"])
 
 # add some notes
 channel = 0
-volume = 100
+volume = 90
 
 outputChords = []
 
@@ -51,6 +55,8 @@ random.shuffle(choices)
 
 numOfChords = len(config['chords'])
 chordCombinations = []
+
+excludedNotes = config["excludedNotes"]
 
 if numOfChords < 3:
     print("This script will not generate expected results for less than 3 chords in input")
@@ -81,7 +87,7 @@ for i in choices:
 
         filteredNotes = []
         for note in totalNotes:
-            if config["noteRangeLow"] <= note <= config["noteRangeHigh"]:
+            if config["noteRangeLow"] <= note <= config["noteRangeHigh"] and note not in excludedNotes:
                 filteredNotes.append(note)
 
         permutedNotes = permutations(filteredNotes)
@@ -102,7 +108,7 @@ for i in choices:
                 lastNote = chosenNoteSequence[noteCounter - 1]
                 passingNoteArr = []
                 for passing in passingNotes:
-                    if lastNote <= passing <= note:
+                    if lastNote <= passing <= note and passing not in excludedNotes:
                         passingNoteArr.append(passing)
                 random.shuffle(passingNoteArr)
                 if len(passingNoteArr) > 0:
@@ -118,9 +124,11 @@ for i in choices:
                 if duration <= 2:
                     addPassing = bool(random.getrandbits(1))
                     if addPassing and passingNote is not None:
+                        noteSequence.append({"note": midiNumberToNote[str(passingNote)], "duration": duration * 0.5})
                         mf.addNote(track, channel, passingNote, time, duration * 0.5, volume)
                         time = time + duration * 0.5
                     else:
+                        noteSequence.append({"note": midiNumberToNote[str(note)], "duration": duration * 0.5})
                         mf.addNote(track, channel, note, time, duration * 0.5, volume)
                         time = time + duration * 0.5
                 else:
@@ -128,16 +136,29 @@ for i in choices:
                     halfNote = int(duration % 2)
 
                     for fullNote in range(fullNotes - 1):
+                        noteSequence.append({"note": midiNumberToNote[str(note)], "duration": 1})
                         mf.addNote(track, channel, note, time, 1, volume)
                         time = time + 1
 
-                    if passingNote is not None:
-                        mf.addNote(track, channel, passingNote, time, 1, volume)
+                    auxilaryNote = None
+                    auxilaryNotes = config["auxilaryNotes"][str(note)]
+                    random.shuffle(auxilaryNotes)
+                    auxilaryNote = auxilaryNotes[0]
+
+                    if auxilaryNote is not None:
+                        noteSequence.append({"note": midiNumberToNote[str(auxilaryNote)], "duration": 0.5})
+                        mf.addNote(track, channel, auxilaryNote, time, 0.5, volume)
+                        time = time + 0.5
+                        noteSequence.append({"note": midiNumberToNote[str(note)], "duration": 0.5})
+                        mf.addNote(track, channel, note, time, 0.5, volume)
+                        time = time + 0.5
                     else:
+                        noteSequence.append({"note": midiNumberToNote[str(note)], "duration": 1})
                         mf.addNote(track, channel, note, time, 1, volume)
-                    time = time + 1
+                        time = time + 1
 
                     if halfNote != 0:
+                        noteSequence.append({"note": midiNumberToNote[str(note)], "duration": 0.5})
                         mf.addNote(track, channel, note, time, 0.5, volume)
                         time = time + 0.5
 
@@ -145,9 +166,15 @@ chordbotTemplate["tempo"] = config["tempo"]
 chordbotTemplate['songName'] = config["name"]
 chordbotTemplate['sections'][0]["chords"] = outputChords
 
+for note in noteSequence:
+    note["duration"] = note["duration"] * 60.0 / float(config["tempo"])
+
 # write it to disk
 with open(config['dir'] + config['name'] + ".midi", 'wb') as outputFile:
     mf.writeFile(outputFile)
 
 with open(config['dir'] + config['name'] + ".json", 'w') as outputFile:
     json.dump(chordbotTemplate, outputFile)
+
+with open(config['dir'] + config['name'] + "-noteSeq.json", 'w') as outputFile:
+    json.dump(noteSequence, outputFile)
